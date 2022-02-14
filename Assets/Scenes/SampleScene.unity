@@ -5120,6 +5120,10 @@ MonoBehaviour:
   clickDownPos: {x: 0, y: 0, z: 0}
   clickUpPos: {x: 0, y: 0, z: 0}
   cameraSelect: {fileID: 963194229}
+  needSlide: 0
+  slideAngle: 0
+  slideAngleMax: 0
+  clickDownAngle: 0
 --- !u!1 &1806451303
 GameObject:
   m_ObjectHideFlags: 0
@@ -5835,6 +5839,8 @@ MonoBehaviour:
   circleObjs: []
   prefabNum: 5
   radius: 5
+  deltaX: 0
+  angle: 0
 --- !u!1 &2066366964
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,8 @@ public class PrefabAssign : MonoBehaviour
     public List<GameObject> circleObjs;
     public int prefabNum = 5;
     public int radius = 5;
+    public float deltaX;
+    public float angle;
     //public Material[] preSetMaterial; 
 
     private void Awake()
@@ -27,11 +29,6 @@ public class PrefabAssign : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            Damping();
-
-        }
     }
 
 
@@ -49,6 +46,8 @@ public class PrefabAssign : MonoBehaviour
             circleObjs[i].transform.position = distance; //物件 設定到預設位置            
             circleObjs[i].SetActive(true); //顯示物件
         }
+
+        AngleCalculate(); // 計算可移動角度
     }
 
     public void AddPrefab( int index) 
@@ -79,15 +78,15 @@ public class PrefabAssign : MonoBehaviour
 
     public IEnumerator Damping_IE() 
     {
-        float angle = (360f / circleObjs.Count) *(Mathf.PI / 180f) * 0.8f; //in 弧度
+     //   angle = (360f / circleObjs.Count) *(Mathf.PI / 180f) * 0.8f; //in 弧度
 
         int counter = 0;
-        float iniAngle = gameObject.transform.rotation.eulerAngles.y;
-        Debug.Log("angle = " + iniAngle);
+        //float iniAngle = gameObject.transform.rotation.eulerAngles.y;
+        
 
         while (counter<40)
         {
-            float variation = (1-counter / 40f)*angle + iniAngle;
+            float variation = (1-counter / 40f)*angle;
             if (counter%2 ==1)
             {
                 variation = -variation;
@@ -95,8 +94,12 @@ public class PrefabAssign : MonoBehaviour
             counter += 1;
             gameObject.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.eulerAngles.x, gameObject.transform.rotation.eulerAngles.y+variation, gameObject.transform.rotation.eulerAngles.z);
             yield return new WaitForSeconds(0.1f);
-            Debug.Log("counter = " + counter + " angle = " + angle + " vari = " + variation);
+            //Debug.Log("counter = " + counter + " angle = " + angle + " vari = " + variation);
         }
+    }
 
+    public void AngleCalculate()
+    {
+        angle = (360f / circleObjs.Count) * (Mathf.PI / 180f) * 0.8f; //in 弧度
     }
 }

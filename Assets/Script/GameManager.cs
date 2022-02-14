@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
     public Vector3 clickDownPos,clickUpPos;
-    bool needChageStatus;
-    bool needChangeWatchObj;
     public CameraControl cameraSelect;
+    public bool needSlide = false;
+
+    public float slideAngle, slideAngleMax,clickDownAngle ;
     // Start is called before the first frame update
     void Start()
     {
-        
+        instance = this;
     }
 
     // Update is called once per frame
@@ -20,12 +22,34 @@ public class GameManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             clickDownPos = Input.mousePosition;
+            slideAngleMax = PrefabAssign.instance.angle*1.2f;
+            clickDownAngle = PrefabAssign.instance.gameObject.transform.rotation.eulerAngles.y;
+            needSlide = true;
         }
         else if(Input.GetMouseButtonUp(0))
         {
             clickUpPos = Input.mousePosition;
+            needSlide = false;
             CheckStatusChange();
         }
+
+        if (needSlide)
+        {
+            
+            float deltaX = clickDownPos.x - Input.mousePosition.x;
+            slideAngle = (deltaX / 60f) * slideAngleMax;
+            if (slideAngle >= slideAngleMax)
+            {
+                slideAngle = slideAngleMax;
+            }
+            else if (slideAngle <= -slideAngleMax)
+            {
+                slideAngle = -slideAngleMax;
+            }
+            Debug.Log("in slde " + slideAngle+ " clickAngle " + clickDownAngle );
+            PrefabAssign.instance.gameObject.transform.rotation = Quaternion.Euler(0f, (clickDownAngle + slideAngle * 180f / Mathf.PI), 0f);
+        }
+        
     }
 
     public void CheckStatusChange()
