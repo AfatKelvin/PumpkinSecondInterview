@@ -2530,6 +2530,7 @@ MonoBehaviour:
   closePos: {x: 0, y: 0, z: 0}
   prefabList: 
   currentObj: 0
+  origine: {x: 0, y: 0, z: 0}
 --- !u!1 &984853668
 GameObject:
   m_ObjectHideFlags: 0
@@ -3278,7 +3279,7 @@ GameObject:
   - component: {fileID: 1172193403}
   - component: {fileID: 1172193402}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: 'BuildFieldButton '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5121,6 +5122,7 @@ MonoBehaviour:
   clickUpPos: {x: 0, y: 0, z: 0}
   cameraSelect: {fileID: 963194229}
   needSlide: 0
+  firstLoad: 1
   slideAngle: 0
   slideAngleMax: 0
   clickDownAngle: 0
@@ -5841,6 +5843,7 @@ MonoBehaviour:
   radius: 5
   deltaX: 0
   angle: 0
+  selectCamera: {fileID: 963194229}
 --- !u!1 &2066366964
 GameObject:
   m_ObjectHideFlags: 0

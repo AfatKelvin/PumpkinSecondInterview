@@ -12,6 +12,7 @@ public class PrefabAssign : MonoBehaviour
     public int radius = 5;
     public float deltaX;
     public float angle;
+    public CameraControl selectCamera;
     //public Material[] preSetMaterial; 
 
     private void Awake()
@@ -36,13 +37,13 @@ public class PrefabAssign : MonoBehaviour
     {
         prefabNum = circleObjs.Count;
 
-        float angle = (360f / prefabNum) * (Mathf.PI / 180f);
+        angle = (360f / prefabNum) * (Mathf.PI / 180f); //弧度
 
         for (int i = 0; i < prefabNum; i++)
         {
             //GameObject temp = null;
             //temp = Instantiate(prefabObjs[i], gameObject.transform); //建立物品
-            Vector3 distance = new Vector3(Mathf.Cos(angle*i)*radius, 0f, Mathf.Sin(angle*i)*radius); //設定座標
+            Vector3 distance = new Vector3(Mathf.Cos(angle*i - 0.5f*Mathf.PI)*radius, 0f, Mathf.Sin(angle*i - 0.5f * Mathf.PI) *radius); //設定座標
             circleObjs[i].transform.position = distance; //物件 設定到預設位置            
             circleObjs[i].SetActive(true); //顯示物件
         }
@@ -96,6 +97,10 @@ public class PrefabAssign : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
             //Debug.Log("counter = " + counter + " angle = " + angle + " vari = " + variation);
         }
+
+        //固定最後位置
+        float anleFix = Mathf.Round(gameObject.transform.rotation.eulerAngles.y / 90f)*90f;
+        gameObject.transform.rotation = Quaternion.Euler(gameObject.transform.rotation.eulerAngles.x, anleFix, gameObject.transform.rotation.eulerAngles.z);
     }
 
     public void AngleCalculate()
