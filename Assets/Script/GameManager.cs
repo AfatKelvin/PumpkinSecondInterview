@@ -73,7 +73,7 @@ public class GameManager : MonoBehaviour
             if (distane >1f) // X位移量夠大才會被判斷要切換mode
             {
                 cameraSelect.CameraStatusChange(1); 
-                modeText.text = "Side View";
+                modeText.text = "環形瀏覽";
             }
         }
         else if (cameraSelect.status == CameraStatus.sideViewOne /*&& clickDownPos.x < clickUpPos.x*/) // sideVieew 滑鼠右移
@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour
             else if(distane <0.05f)//點擊
             {
                 cameraSelect.CameraStatusChange(2);
-                modeText.text = "Close View";
+                modeText.text = "特寫";
             }
         }
         else if (cameraSelect.status == CameraStatus.closeUpView && clickDownPos.y < clickUpPos.y) // closeUpView 切換成 sideView
@@ -105,8 +105,15 @@ public class GameManager : MonoBehaviour
             if (deltaY > deltaX) // Y方向位移比X方向多
             {
                 cameraSelect.CameraStatusChange(1);
-                modeText.text = "Side View";
+                modeText.text = "環形瀏覽";
             }
         }
     }
+
+    //關閉程式
+    public void Leave() 
+    {
+        Application.Quit();
+    }
+
 }
