@@ -39,6 +39,7 @@ public class PrefabAssign : MonoBehaviour
         AngleCalculate(); // 計算可移動角度
     }
 
+    //-----------------------------------------------
     // 將物件加入清單
     public void AddPrefab( int index) 
     {
@@ -78,8 +79,9 @@ public class PrefabAssign : MonoBehaviour
             removeButtonSet[i].transform.GetChild(0).gameObject.GetComponent<Text>().text = "Remove " + circleObjs[i].name;
         }
     }
-
-
+    //---------------------------------------------
+    
+    
     // 晃動效果
     public void Damping()
     {

@@ -12,10 +12,20 @@ public class GameManager : MonoBehaviour
     public bool firstLoad = true; //判斷是否為初次載入場景
     public Text modeText; //相機模式提示
     public float slideAngle, slideAngleMax,clickDownAngle ; //旋轉角度(sideView 滑動滑鼠時) 最大可旋轉角度
+
+    public GameObject[] prefabObjs; // 可以被建立的物件樣品
+    public List<GameObject> circleObjs; //被添加的物件
+    public int prefabNum; //物件數量
+    public int radius = 5; //預設距離長度 form 中心
+    public float angle;  //相鄰物件所隔出之角度
+    public float angle2;  //滑動時 可移動角度
+
+
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
+        InitialPrefab();
     }
 
     // Update is called once per frame
@@ -60,6 +70,39 @@ public class GameManager : MonoBehaviour
             }
             PrefabAssign.instance.gameObject.transform.rotation = Quaternion.Euler(0f, (clickDownAngle + slideAngle * 180f / Mathf.PI), 0f); //角度移動切換
         }
+    }
+
+
+    public void InitialPrefab() 
+    {
+        prefabNum = 4;//Random.Range(3, 13); //隨機給予prefab數量
+        circleObjs.Clear(); //清空清單
+
+        for (int i = 0; i < prefabNum; i++) //產生物件
+        {
+            GameObject temp = null;
+            temp = Instantiate(prefabObjs[i], gameObject.transform); //產生物件
+            circleObjs.Add(temp);
+        }
+
+        angle = (360f / prefabNum) * (Mathf.PI / 180f); //計算相隔弧度
+
+        for (int i = 0; i < prefabNum; i++)
+        {
+            //GameObject temp = null;
+            //temp = Instantiate(prefabObjs[i], gameObject.transform); //建立物品
+            Vector3 distance = new Vector3(Mathf.Cos(angle * i - 0.5f * Mathf.PI) * radius, 0f, Mathf.Sin(angle * i - 0.5f * Mathf.PI) * radius); //設定座標
+
+            circleObjs[i].transform.position = distance; //物件 設定到預設位置            
+            circleObjs[i].SetActive(true); //顯示物件
+        }
+
+        AngleCalculate(); // 計算可移動角度
+    }
+
+    public void AngleCalculate() //計算平均弧度
+    {
+        angle2 = (360f / circleObjs.Count) * (Mathf.PI / 180f) * 0.8f; //in 弧度
     }
 
     public void CheckStatusChange()
