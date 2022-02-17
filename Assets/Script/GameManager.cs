@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
            
         }
 
+        /*
         if (needSlide && cameraSelect.status == CameraStatus.sideViewOne) //sideView 時 滑動一動時造成的環型 prefab 旋轉 
         {
             float deltaX = clickDownPos.x - Input.mousePosition.x; //紀錄滑鼠移動的距離 再以一定的比例竊換成角度旋轉
@@ -70,12 +71,13 @@ public class GameManager : MonoBehaviour
             }
             PrefabAssign.instance.gameObject.transform.rotation = Quaternion.Euler(0f, (clickDownAngle + slideAngle * 180f / Mathf.PI), 0f); //角度移動切換
         }
+        */
     }
 
 
     public void InitialPrefab() 
     {
-        prefabNum = 4;//Random.Range(3, 13); //隨機給予prefab數量
+        prefabNum = Random.Range(3, 13); //隨機給予prefab數量
         circleObjs.Clear(); //清空清單
 
         for (int i = 0; i < prefabNum; i++) //產生物件
